@@ -54,7 +54,7 @@
 							<label for="field-1" class="control-label">Day</label> 
 							<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<select name="day" id="day" class="form-control">
+							<select name="day" id="day" class="form-control reset">
 								<?php foreach ($day as $key ) {?>
 									<option value="<?= $key->id_day?>"><?= $key->name_day ?></option>
 								<?php } ?>	
@@ -70,8 +70,7 @@
 							<label for="field-3" class="control-label">Schedule</label> 
 							<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" id="schedule" name="schedule" placeholder="Schedule"> 
-							<input type="hidden" class="form-control" id="all_time1" name="all_time1" placeholder="all_time"> 
+							<input type="text" class="form-control reset" id="schedule" name="schedule" placeholder="Schedule"> 
 							</div>
 							
 						</div> 
@@ -82,7 +81,9 @@
 						<div class="form-group"> 
 							<label for="field-3" class="control-label">Time</label>
 							<div class="input-group">
-							<div class="bootstrap-timepicker"><input id="schedule_time1" name="schedule_time1" type="text" class="form-control"/></div>
+							<div class="bootstrap-timepicker"><input id="schedule_time1" name="schedule_time1" type="text" class="form-control reset"/>
+							<input type="hidden" class="form-control" id="all_time1" name="all_time1" placeholder="all_time"> 
+							</div>
 							<span class="input-group-btn">
 							<button type="button" class="btn waves-effect waves-light btn-primary">
 							<i class="glyphicon glyphicon-time"></i></button></span>
@@ -94,7 +95,7 @@
 							<label for="field-3" class="control-label">Finish</label>
 							<div class="input-group">
 							<input type="hidden" name="all_finish1" id="all_finish1">
-							<div class="bootstrap-timepicker"><input id="schedule_finish1" name="schedule_finish1" type="text" class="form-control"/></div>
+							<div class="bootstrap-timepicker"><input id="schedule_finish1" name="schedule_finish1" type="text" class="form-control reset"/></div>
 							<span class="input-group-btn">
 							<button type="button" class="btn waves-effect waves-light btn-primary">
 							<i class="glyphicon glyphicon-time"></i></button></span>
@@ -162,7 +163,7 @@
 							<label for="field-3" class="control-label">Schedule</label> 
 							<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" id="schedule_name" name="schedule_name" placeholder="Schedule"> 
+							<input type="text" class="form-control reset" id="schedule_name" name="schedule_name" placeholder="Schedule"> 
 							<input type="hidden" class="form-control" id="id_schedule" name="id_schedule" placeholder="Schedule"> 
 							<input type="hidden" class="form-control" id="all_time" name="all_time" placeholder="Schedule"> 
 							</div>
@@ -175,7 +176,7 @@
 						<div class="form-group"> 
 							<label for="field-3" class="control-label">Time</label>
 							<div class="input-group">
-							<div class="bootstrap-timepicker"><input id="schedule_time" name="schedule_time" type="text" class="form-control"/></div>
+							<div class="bootstrap-timepicker"><input id="schedule_time" name="schedule_time" type="text" class="form-control reset"/></div>
 							<span class="input-group-btn">
 							<button type="button" class="btn waves-effect waves-light btn-primary">
 							<i class="glyphicon glyphicon-time"></i></button></span>
@@ -187,7 +188,7 @@
 							<label for="field-3" class="control-label">Finish</label>
 							<div class="input-group">
 							<input type="hidden" name="all_finish" id="all_finish">
-							<div class="bootstrap-timepicker"><input id="schedule_finish" name="schedule_finish" type="text" class="form-control"/></div>
+							<div class="bootstrap-timepicker"><input id="schedule_finish" name="schedule_finish" type="text" class="form-control reset"/></div>
 							<span class="input-group-btn">
 							<button type="button" class="btn waves-effect waves-light btn-primary">
 							<i class="glyphicon glyphicon-time"></i></button></span>
@@ -271,12 +272,11 @@ $(document).ready(function () {
 		})
 	}
 
-	$("#btn_save").on('click', function(event) {
-		event.preventDefault();
+	$("#btn_save").on('click', function() {
 		var day = $("#day").val();
 		var schedule = $("#schedule").val();
 		var all_time1 = $("#all_time1").val();
-		var all_finish1 = $("all_finish1").val();
+		var all_finish1 = $("#all_finish1").val();
 		var id_class = $("#id_class").val();
 		var csrf_test_name = $('[name="csrf_test_name"]').val()
 		
@@ -291,15 +291,24 @@ $(document).ready(function () {
 				    id_class : id_class,
 				    csrf_test_name : csrf_test_name
 			      }, 
-			success : function(){
-            $.Notification.notify('success','top left',
+			success : function(data){
+				if($.isEmptyObject(data.eror)){
+					$.Notification.notify('success','top left',
 					'Success Message',
-					'Add Succeed.')
-             list_dialy();
-             $("#modal_dialy_add").modal('hide');
+					'Update Succeed.')
+					$(".validate").css('display', 'none');
+					$("#modal_dialy_add").modal('hide');
+					$('.reset').val("");
+					list_dialy();
+					//alert("1");
+				} else {
+					$("#modal_dialy_add").modal('hide');
+					$(".validate").css('display', 'block');
+					$(".validate").html(data.eror);
+				}
 			}
+
 		});
-		
 	});
 
 	$("#show").on('click', '.edit-dialy', function(){
@@ -368,7 +377,7 @@ $(document).ready(function () {
 					$(".validate").css('display', 'none');
 					$("#modal_dialy").modal('hide');
 					list_dialy();
-					//alert("1");
+					$('.reset').val("");
 				} else {
 					$("#modal_dialy").modal('hide');
 					$(".validate").css('display', 'block');

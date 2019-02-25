@@ -1,28 +1,4 @@
-<style type="text/css">
-.circle {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 20%;
-  margin: 0 4px;
-}
 
-.circle-1 {
-  border: 4px solid  rgb(241, 241, 233);
-}
-
-.circle-2 {
-  border: 4px solid rgb(42, 78, 176);
-}
-
-.circle-3 {
-  border: 4px solid rgb(241, 241, 233);
-}
-
-.circle-4 {
-  border: 4px solid rgb(42, 78, 176);
-}
-</style>
 <div class="topbar">
     <!-- LOGO -->
     <div class="topbar-left">
@@ -48,12 +24,6 @@
                 </form>
 
                 <ul class="nav navbar-nav navbar-right pull-right">
-                    <li class="" style="position: absolute; left: 50%;top: 50%;transform: translateX(200%) translateY(-35%);">
-                      <div class="circle circle-1"></div>
-                      <div class="circle circle-2"></div>
-                      <div class="circle circle-3"></div>
-                      <div class="circle circle-4"></div>
-                    </li>
                     <li class="dropdown hidden-xs">
                         <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                             <i class="md md-notifications"></i> <span class="badge badge-xs badge-danger">3</span>
@@ -120,9 +90,11 @@
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
-                    			<?php if ($this->session->userdata('auth_on')) {?>
-                    			<img src="<?php echo base_url('assets/images/'.$this->session->userdata('image'))?>" alt="user-img" class="img-circle">
-                    			<?php } ?>
+                    			<?php if ($this->session->userdata('control')=='administrator' || $this->session->userdata('control')=='inspector') {?>
+                    			<img src="<?php echo base_url('assets/images/user/'.$this->session->userdata('image'))?>" alt="user-img" class="img-circle">
+                    			<?php } else {?>
+                            <img src="<?php echo base_url('assets/images/student/'.$this->session->userdata('image'))?>" alt="user-img" class="img-circle">
+                          <?php } ?>
                   			</a>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
@@ -137,52 +109,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<?= base_url()?>assets/js/anime.js"></script>
-<script type="text/javascript">
-  var circle1 = anime ({
-  targets: ['.circle-1'],
-  translateY: -24,
-    translateX: 52,
-    direction: 'alternate',
-  loop: true,
-  elasticity: 400,
-    easing: 'easeInOutElastic',
-   duration: 1600,
-    delay: 800,
-});
-
-var circle2 = anime ({
-  targets: ['.circle-2'],
-  translateY: 24,
-    direction: 'alternate',
-  loop: true,
-  elasticity: 400,
-    easing: 'easeInOutElastic',
-   duration: 1600,
-    delay: 800,
-});
-
-var circle3 = anime ({
-  targets: ['.circle-3'],
-  translateY: -24,
-    direction: 'alternate',
-  loop: true,
-  elasticity: 400,
-    easing: 'easeInOutElastic',
-   duration: 1600,
-    delay: 800,
-});
-
-var circle4 = anime ({
-  targets: ['.circle-4'],
-  translateY: 24,
-    translateX: -52,
-    direction: 'alternate',
-  loop: true,
-  elasticity: 400,
-    easing: 'easeInOutElastic',
-   duration: 1600,
-    delay: 800,
-});
-
-</script>

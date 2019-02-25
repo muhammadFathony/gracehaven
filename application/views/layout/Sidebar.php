@@ -1,20 +1,17 @@
-<?php 
-    $email = $this->session->userdata('email');
-    $firstname = $this->session->userdata('firstname');
-    $query = $this->db->query('SELECT user_rule.firstname, user_rule.email, user_rule.control, parent.desc as parentdesc, parent.parent, child.desc as childdesc, child.child FROM page INNER JOIN user_rule ON page.id_user=user_rule.id_user INNER JOIN parent ON page.id_parent = parent.id_parent INNER JOIN child on page.id_child = child.id_child WHERE user_rule.email="admin@gmail.com"');
-  
-?>
+
             <div class="left side-menu">
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-						<?php if ($this->session->userdata('auth_on')){ ?>
-                            <img src="<?php echo base_url('assets/images/'.$this->session->userdata('image'))?>" alt="" class="thumb-md img-circle">
-						<?php } ?>
+						<?php if ($this->session->userdata('control')=='administrator' || $this->session->userdata('control')=='inspector'){ ?>
+                            <img src="<?php echo base_url('assets/images/user/'.$this->session->userdata('image'))?>" alt="" class="thumb-md img-circle">
+						<?php } else {?>
+                            <img src="<?php echo base_url('assets/images/student/'.$this->session->userdata('image'))?>" alt="" class="thumb-md img-circle">
+                        <?php } ?>
 						</div>
                         <div class="user-info">
                             <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><?= $this->session->userdata('firstname') ?> <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><?= $this->session->userdata('firstname')  ?> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
                                     <?php if ($this->session->userdata('control')=='administrator') {?>
@@ -31,23 +28,31 @@
                     <!--- Divider -->
                     <div id="sidebar-menu">
                         <ul>
-                            <?php $data = $query->row();
-                                $b = $this->db->query('SELECT DISTINCT user_rule.firstname, user_rule.email, user_rule.control, parent.desc as parendesc, parent.parent FROM page INNER JOIN user_rule ON page.id_user=user_rule.id_user INNER JOIN parent ON page.id_parent = parent.id_parent  WHERE user_rule.email="admin@gmail.com"');
-                            foreach ($b->result() as $key ) {?>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect"><i class="fa fa-book"></i> <span><?= $key->parendesc ?></span> <span class="pull-right"><i class="md md-add"></i></span></a>
+                            <li>
+                                <a href="<?= base_url('conten/Dashboard.html')?>" class="waves-effect active"><i class="md md-home"></i><span>Dashboard</span></a>
+                            </li>
+                        <?php
+                        $id_control = $this->session->userdata('id_control'); 
+                        $a = $this->db->query("SELECT * FROM `rbac` INNER JOIN sidebar on rbac.id = sidebar.id  WHERE rbac.id_control = '$id_control'");
+                          
+                            foreach ($a->result() as $main ) {
+                                if ($main->child == 0 ) { ?>
+                            <li>
+                                <a href="<?= base_url($main->url)?>" class="waves-effect active"><i class="md md-home"></i><span><?= $main->title ?></span></a>
+                            </li>
+                        <?php } elseif ($main->child == 1) { 
+                            // $d = $this->db->query("SELECT * FROM `sidebar` WHERE parent = $main->id");
+                            $child = $this->db->query("SELECT * FROM rbac JOIN sidebar ON rbac.id = sidebar.id WHERE rbac.id_control = $id_control AND sidebar.parent = '$main->id'")
+                            ?>
+                             <li class="has_sub">
+                                <a href="#" class="waves-effect"><i class="md md-mail"></i><span> <?= $main->title ?> </span><span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <?php 
-                                      $a = $this->db->query('SELECT * FROM `page` WHERE have_child=1');
-                                        if ($a->row()) {
-                                        $b = $this->db->query('SELECT * FROM `child`INNER JOIN parent ON child.id_parent = parent.id_parent');
-                                        }
-                                      ?>
+                                   <?php foreach ($child->result() as $key ) { ?>
+                                    <li><a href="<?= base_url($key->url) ?>"><?= $key->title ?> </a></li>
+                                    <?php } ?>                                    
                                 </ul>
                             </li>
-                          
-                            <?php } ?>
+                        <?php } } ?>
                         </ul>
                         <div class="clearfix"></div>
                     </div>

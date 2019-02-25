@@ -9,6 +9,20 @@ class M_dialy extends CI_Model {
 		$this->db->from('day');
 		$this->db->join('schedule', 'day.id_day = schedule.id_day', 'inner');
 		$this->db->join('class', 'class.id_class = schedule.id_class', 'inner');
+		$this->db->order_by('schedule.id_day', 'asc');
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	function activity_everyday(){
+		$today = getdate();
+		$this->db->select('*');
+		$this->db->from('schedule');
+		$this->db->join('day', 'schedule.id_day = day.id_day', 'inner');
+		$this->db->join('class', 'schedule.id_class = class.id_class', 'inner');
+		$this->db->where('day.name_day', $today['weekday']);
+		$this->db->order_by('hour(schedule.schedule_time)', 'asc');
 		$query = $this->db->get();
 
 		return $query->result();
@@ -37,7 +51,10 @@ class M_dialy extends CI_Model {
 						   'id_class' => $obj['id_class'],
 						    );
 
-		$this->db->insert('schedule', $object);
+		$query = $this->db->insert('schedule', $object);
+
+		return $query;
+
 	}
 
 	function update_dialy($obj)
@@ -62,6 +79,23 @@ class M_dialy extends CI_Model {
 		return $query;
 	}
 
+	function update_daily_student($id_student)
+	{
+		$this->db->set('status', 1);
+		$this->db->where('id_student', $id_student);
+		$query = $this->db->update('student');
+
+		return $query;
+	}
+
+	function deleted_completed_activities($id_schedule, $id_student)
+	{
+		$this->db->where('id_schedule', $id_schedule);
+		$this->db->where('id_student', $id_student);
+		$query = $this->db->delete('activity_student');
+
+		return $query;
+	}
 }
 
 /* End of file M_dialy.php */

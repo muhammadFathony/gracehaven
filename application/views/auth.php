@@ -59,7 +59,7 @@
                     <div class="form-group ">
                         <div class="col-xs-12">
             <input type="hidden" name="<?= $csrf['name'];?>" value="<?= $csrf['hash'];?>" />
-                            <input class="form-control input-lg " type="email" placeholder="Email" name="email" required="">
+                            <input class="form-control input-lg " type="text" placeholder="Email / NIS" name="email" required="">
                         </div>
                     </div>
 

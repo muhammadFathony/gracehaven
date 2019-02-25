@@ -16,6 +16,40 @@ class M_privilege extends CI_Model {
 		return $query->result();
 	}	
 
+	function insert_role($ortu, $id_control)
+	{
+		$obj = array('id' => $ortu,
+					 'id_control' => $id_control
+					);
+		$query = $this->db->insert('rbac', $obj);
+		return $query;
+	}
+
+	function insert_child($id, $id_control)
+	{
+		$obj = array('id' => $id,
+					 'id_control' => $id_control
+					);
+		$query = $this->db->insert('rbac', $obj);
+		return $query;
+	}
+
+	function remove_role($ortu, $id_control)
+	{
+		$this->db->where('id', $ortu);
+		$this->db->where('id_control', $id_control);
+		$query = $this->db->delete('rbac');
+		return $query;
+	}
+
+	function remove_child($id, $id_control)
+	{
+		$this->db->where('id', $id);
+		$this->db->where('id_control', $id_control);
+		$query = $this->db->delete('rbac');
+		return $query;	
+	}	
+
 }
 
 /* End of file M_privilege.php */

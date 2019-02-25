@@ -8,6 +8,11 @@ class Dialyprogamme extends CI_Controller {
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('M_dialy');
+		$this->load->library('access_library');
+		if ($this->access_library->priv()== FALSE) {
+			$this->session->set_flashdata('msg','error');
+			redirect('conten/Dashboard','refresh');
+		}
 	}
 
 	public function index()
@@ -31,6 +36,17 @@ class Dialyprogamme extends CI_Controller {
 
 	function create_dialy()
 	{
+		$this->form_validation->set_rules('schedule', 'Schedule', 'trim|required');
+		$this->form_validation->set_rules('all_time1', 'Time Start', 'trim|required');
+		$this->form_validation->set_rules('all_finish1', 'Time Finish', 'trim|required');
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			$errors = validation_errors();
+            echo json_encode(['eror' => $errors]);
+		
+		} else {
+
 		$obj = array('day' => $this->input->post('day', TRUE),
 					 'schedule' => $this->input->post('schedule', TRUE),
 					 'all_time1' => $this->input->post('all_time1', TRUE),
@@ -39,6 +55,8 @@ class Dialyprogamme extends CI_Controller {
 					);
 		$data = $this->M_dialy->create_dialy($obj);
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+		}
 	}
 
 	function update_dialy()
@@ -72,6 +90,8 @@ class Dialyprogamme extends CI_Controller {
 		$data = $this->M_dialy->delete_dialy($id_schedule);
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
+
+	
 
 }
 

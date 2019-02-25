@@ -35,8 +35,17 @@
 		<link href="<?php echo base_url()?>assets/Dashboard/assets/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 		 <!-- Plugins css -->
 		<link href="<?php echo base_url()?>assets/Dashboard/assets/notifications/notification.css" rel="stylesheet" />
+        <!-- Time Picker -->
         <link href="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
         <link href="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <!-- Date Picker -->
+        <link href="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url()?>assets/Dashboard/assets/colorpicker/colorpicker.css" rel="stylesheet" type="text/css" />
+        <!-- toggle -->
+        <link href="<?php echo base_url()?>assets/Dashboard/assets/toggles/toggles.css" rel="stylesheet" />
+        <!--venobox lightbox-->
+        <link rel="stylesheet" href="<?php echo base_url()?>assets/Dashboard/assets/magnific-popup/magnific-popup.css"/>
+        
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -243,5 +252,13 @@
         <!-- timepicker -->
 	    <script src="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-timepicker.min.js"></script>
         <script src="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-datepicker.js"></script>
+        <!-- Date Picker -->
+        <script src="<?php echo base_url()?>assets/Dashboard/assets/timepicker/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>assets/Dashboard/assets/colorpicker/bootstrap-colorpicker.js"></script>
+        <!-- togle -->
+        <script src="<?php echo base_url()?>assets/Dashboard/assets/toggles/toggles.min.js"></script>
+        <!-- image -->
+        <script type="text/javascript" src="<?php echo base_url()?>assets/Dashboard/assets/gallery/isotope.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>assets/Dashboard/assets/magnific-popup/magnific-popup.js"></script> 
 	</body>
 </html>

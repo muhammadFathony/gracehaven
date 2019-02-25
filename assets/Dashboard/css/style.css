@@ -1213,7 +1213,7 @@ lesshat-selector {
   position: relative;
   z-index: 1;
   width: 240px;
-  background: #317eeb;
+  background: rgb(219, 22, 60);
 }
 .logo h1 {
   margin: 0px auto;
@@ -1223,7 +1223,7 @@ lesshat-selector {
 .navbar-default {
   border: none;
   margin-bottom: 0px;
-  background-color: #317eeb;
+  background-color: rgb(219, 22, 60);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0px;
 }

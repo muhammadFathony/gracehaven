@@ -72,9 +72,10 @@ $this->load->view('layout/Widget');
 										<div class="form-group"> 
 											<div class="input-group">
 												<select name="control" id="control" class="required form-control">
-													<option value="administrator">Administrator</option>
-													<option value="inspector">Inspector</option>
-													<option value="student">Student</option>
+													<option></option>
+													<?php foreach ($control as $key) { ?>
+														<option value="<?= $key->id_control ?>"><?= $key->control ?> </option>
+													<?php } ?>
 												</select>
 											<span class="input-group-btn">
 											<button type="button" class="btn waves-effect waves-light btn-primary">
@@ -216,7 +217,7 @@ $(document).ready(function () {
 					 dataType : "JSON",
 					 success : function(data){
 						 if (data.account_already) {
-							swal('Account has been created.','','warning');
+							swal('Account has been created. Refresh Page','','warning');
 						 } else {
 							$.Notification.notify('success', 'top right', 'Sample Notification',
 						 	'Data has been saved, Thanks ..');

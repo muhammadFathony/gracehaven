@@ -288,4 +288,11 @@ $this->load->view('layout/Widget');
 		</div>
 	</div> <!-- end col -->
 </div> <!-- end row -->
-	
+<script src="<?php echo base_url()?>assets/Dashboard/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		<?php if ($this->session->flashdata('msg')=='error') { ?>
+			$.Notification.notify('warning', 'top right', 'Failed','You dont have access. ..');
+		<?php } ?>
+	});
+</script>

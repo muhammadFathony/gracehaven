@@ -113,9 +113,10 @@
 							<label for="field-3" class="control-label">Control</label>
 							<div class="input-group">
 								<select name="control" id="control" class="form-control">
-									<option value="administrator">Administrator</option>
-									<option value="inspector">Inspector</option>
-									<option value="student">Student</option>
+									<option></option>
+								<?php foreach ($control as $key) { ?>
+									<option value="<?= $key->id_control ?>"><?= $key->control ?> </option>
+								<?php } ?>
 								</select>
 							<span class="input-group-btn">
 							<button type="button" class="btn waves-effect waves-light btn-primary">
@@ -167,7 +168,7 @@ $(document).ready(function () {
 								'<a href="javascript:void(0);" class="md-trigger on-default btn-sm edit_user"'+
 								'data-id="'+data[index].id_user+'" data-firstname="'+data[index].firstname+'"'+ 
 								'data-lastname="'+data[index].lastname+'" data-email="'+data[index].email+'"'+
-								'data-control="'+data[index].control+'" data-password="'+data[index].password+'">'+
+								'data-control="'+data[index].control+'" data-id_control="'+data[index].id_control+'" data-password="'+data[index].password+'">'+
 								'<i class="md md-border-color"></i></a>'+ 
 								'<a href="javascript:void(0);" class="md-trigger on-default btn-sm delete"'+
 								'data-id_user="'+data[index].id_user+'">'+
@@ -185,14 +186,14 @@ $(document).ready(function () {
 		var first_name = $(this).data('firstname');
 		var last_name = $(this).data('lastname');
 		var email = $(this).data('email');
-		var control = $(this).data('control');	
+		var id_control = $(this).data('id_control');	
 		
 		$("#modal_user").modal('show');
 		$("#id").val(id);
 		$("#first_name").val(first_name);
 		$("#last_name").val(last_name);
 		$("#email").val(email);
-		$("#control").val(control);
+		$("#control").val(id_control);
 	})
 
 	$("#btn_update").on('click', function(){
