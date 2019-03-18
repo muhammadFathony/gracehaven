@@ -221,7 +221,7 @@ $(document).ready(function () {
 					$(".validate").css('display', 'none');
 					$("#modal_user").modal('hide');
 					list_user();
-					//alert("1");
+					
 				} else {
 					$("#modal_user").modal('hide');
 					$(".validate").css('display', 'block');

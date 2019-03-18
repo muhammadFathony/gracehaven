@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('errorMessage', '<div class="alert alert-success alert-dismissible fade in" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 			<strong class="title"> You must sign ! </strong></div>');
-
+			$this->session->set_flashdata('msg', 'must_sign');
 			redirect('Auth_user','refresh');
 		}
 	}

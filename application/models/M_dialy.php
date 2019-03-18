@@ -15,13 +15,14 @@ class M_dialy extends CI_Model {
 		return $query->result();
 	}
 
-	function activity_everyday(){
+	function activity_everyday($id_class){
 		$today = getdate();
 		$this->db->select('*');
 		$this->db->from('schedule');
 		$this->db->join('day', 'schedule.id_day = day.id_day', 'inner');
 		$this->db->join('class', 'schedule.id_class = class.id_class', 'inner');
 		$this->db->where('day.name_day', $today['weekday']);
+		$this->db->where('schedule.id_class', $id_class);
 		$this->db->order_by('hour(schedule.schedule_time)', 'asc');
 		$query = $this->db->get();
 
@@ -96,6 +97,7 @@ class M_dialy extends CI_Model {
 
 		return $query;
 	}
+
 }
 
 /* End of file M_dialy.php */

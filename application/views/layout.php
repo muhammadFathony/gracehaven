@@ -46,7 +46,8 @@
         <!--venobox lightbox-->
         <link rel="stylesheet" href="<?php echo base_url()?>assets/Dashboard/assets/magnific-popup/magnific-popup.css"/>
         
-
+        <!-- rate -->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/star-rating-svg.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -260,5 +261,7 @@
         <!-- image -->
         <script type="text/javascript" src="<?php echo base_url()?>assets/Dashboard/assets/gallery/isotope.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>assets/Dashboard/assets/magnific-popup/magnific-popup.js"></script> 
+        <!-- rate -->
+        <script src="<?php echo base_url()?>assets/js/src/jquery.star-rating-svg.js"></script>
 	</body>
 </html>

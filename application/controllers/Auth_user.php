@@ -20,7 +20,7 @@ class Auth_user extends CI_Controller {
 					'name' => $this->security->get_csrf_token_name(),
 					'hash' => $this->security->get_csrf_hash()
 			);
-			$this->load->view('auth', $csrf, FALSE);
+			$this->load->view('Sign_in', $csrf);
 		}
 	}
 
@@ -39,7 +39,7 @@ class Auth_user extends CI_Controller {
 			$this->session->set_flashdata('errorMessage', '<div class="alert alert-success alert-dismissible fade in" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 			<strong>'.validation_errors().'</strong><br> Please try again ! </div>');
-
+			$this->session->set_flashdata('msg','try_again');
 			redirect('Auth_user','refresh');
 		} else {
 			$email = $this->input->post('email');
@@ -62,28 +62,28 @@ class Auth_user extends CI_Controller {
 									);	
 					$this->session->set_userdata($userdata);
 					
-					if ($this->session->userdata('control')== "administrator") {
+					if ($this->session->userdata('id_control')== "1") {
 						
 						redirect('conten/Dashboard','refresh');
 						
-					} elseif ($this->session->userdata('control')=="inspector") {
+					} elseif ($this->session->userdata('id_control')=="2") {
 						
 						redirect('conten/Dashboard','refresh');
 					
-					} elseif ($this->session->userdata('control')=="student") {
+					} elseif ($this->session->userdata('id_control')=="3") {
 						
 						redirect('conten/Dashboard','refresh');
 					
 					} else {
 
-						$data = array('firstname', 'lastname', 'id_control', 'email', 'auth_on');
-						$this->session->unset_userdata($data);
+						// $data = array('firstname', 'lastname', 'id_control', 'email', 'control','id_user', 'auth_on');
+						// $this->session->unset_userdata($data);
+						$this->session->set_flashdata('msg', 'not_found');
 						redirect('Auth_user','refresh');
-						//echo "salah pasword/inputn";
 					}
 				} else {
 					$this->session->set_flashdata('errorMessage', '<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>'.validation_errors().'</strong><br>Password and username invalid !</div>');
-
+					$this->session->set_flashdata('msg','invalid');
 						redirect('Auth_user','refresh');
 						//echo "cek";
 				}
@@ -94,35 +94,35 @@ class Auth_user extends CI_Controller {
 					$userdatastudent = array(
 									'id_student' => $auth_student->id_student,
 									'firstname' => $auth_student->firstname,
+									'lastname' => $auth_student->lastname,
 									'control' => $auth_student->control,
+									'class' => $auth_student->class,
+									'id_class' => $auth_student->id_class,
 									'id_control' => $auth_student->id_control,
 									'image' => $auth_student->image,
 									'auth_on' => true
 									);	
 					$this->session->set_userdata($userdatastudent);
 
-					if ($this->session->userdata('control')=='student') {
+					if ($this->session->userdata('id_control')=='3') {
 						redirect('conten/Dashboard','refresh');
 					} else {
 						$this->session->set_flashdata('errorMessage', '<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>'.validation_errors().'</strong><br>Some thing is wrong !</div>');
-
-						redirect('Auth_user','refresh');
+						$this->session->set_flashdata('msg','wrong');
+						redirect('Auth_user','wrong');
 					}
 				} else {
 					$this->session->set_flashdata('errorMessage', '<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong>'.validation_errors().'</strong><br>Password and username invalid !</div>');
-
+					$this->session->set_flashdata('msg','invalid');
 						redirect('Auth_user','refresh');
 				}
-			}
-
-			 else {
+			}  else {
 
 				$this->session->set_flashdata('errorMessage', '<div class="alert alert-warning alert-dismissible fade in" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 					<strong class="title"> Account not found ! </strong></div>');
-					
+				$this->session->set_flashdata('msg','not_found');	
 				redirect('Auth_user','refresh');
-				
 				
 			}
 		}
@@ -130,7 +130,15 @@ class Auth_user extends CI_Controller {
 
 	function signout()
 	{
-		$data = array('firstname', 'id_control', 'email', 'auth_on');
+		$data = array('id_student',
+					  'firstname',
+					  'lastname',
+					  'control',
+					  'class',
+					  'id_class',
+					  'id_control',
+					  'image',
+					  'auth_on' );
 		
 		$this->session->unset_userdata($data);
 

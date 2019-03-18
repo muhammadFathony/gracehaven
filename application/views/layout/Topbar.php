@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <div class="text-center">
-            <a href="<?= base_url('Dashboard.html')?>" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
+            <a href="<?= base_url('Dashboard.html')?>" class="logo"><i class="md md-terrain"></i> <span>Gracehaven </span></a>
         </div>
     </div>
     <!-- Button mobile view to collapse sidebar menu -->
@@ -90,7 +90,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
-                    			<?php if ($this->session->userdata('control')=='administrator' || $this->session->userdata('control')=='inspector') {?>
+                    			<?php if ($this->session->userdata('id_control')=='1' || $this->session->userdata('id_control')=='2') {?>
                     			<img src="<?php echo base_url('assets/images/user/'.$this->session->userdata('image'))?>" alt="user-img" class="img-circle">
                     			<?php } else {?>
                             <img src="<?php echo base_url('assets/images/student/'.$this->session->userdata('image'))?>" alt="user-img" class="img-circle">

@@ -238,7 +238,7 @@ $(document).ready(function () {
 	function list_dialy(){
 		var csrf_test_name = $('[name="csrf_test_name"]').val();
 		$.ajax({
-			url : "<?= base_url('conten/Dialyprogamme/all_dialy') ?>",
+			url : "<?= base_url('student/Dailystudent/all_dialy') ?>",
 			type : "ajax",
 			async : false,
 			data : { csrf_test_name : csrf_test_name }, 
@@ -281,7 +281,7 @@ $(document).ready(function () {
 		var csrf_test_name = $('[name="csrf_test_name"]').val()
 		
 		$.ajax({
-			url: '<?= base_url('conten/Dialyprogamme/create_dialy') ?>',
+			url: '<?= base_url('student/Dailystudent/create_dialy') ?>',
 			type: 'POST',
 			dataType: 'json',
 			data: { day : day,
@@ -365,7 +365,7 @@ $(document).ready(function () {
 					};
 			
 		$.ajax({
-			url : "<?= base_url('conten/Dialyprogamme/update_dialy') ?>",
+			url : "<?= base_url('student/Dailystudent/update_dialy') ?>",
 			type : "post",
 			data : data , 
 			dataType : "json",
@@ -407,7 +407,7 @@ $(document).ready(function () {
 							csrf_test_name : csrf_test_name
 							},
 					type : "post",
-					url : "<?= base_url('conten/Dialyprogamme/delete_dialy')?>",
+					url : "<?= base_url('student/Dailystudent/delete_dialy')?>",
 					crossOrigin : false,
 					dataType : 'JSON',
 					success : function(data){
